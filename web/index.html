@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Nightingle Projection Scheduler</title>
+		<meta charset="UTF-8" />
+		
+		<link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono&display=swap" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" media="all" href="./css/reset.css"></link>
+		<link rel="stylesheet" type="text/css" media="all" href="./css/style.css"></link>
+		<link rel="stylesheet" type="text/css" media="all" href="./css/osc-view.css"></link>
+
+		<script src="node_modules/osc/dist/osc-browser.min.js"></script>
+		<script>
+			var port = new osc.WebSocketPort({ url: "ws://localhost:8081" });
+
+			port.open();
+
+			console.log({ port });
+
+			function sendOSC(packets) {
+				for(var i = 0; i < packets.length; i++) {
+					// console.log({ packet: packets[i] });
+					port.send(packets[i]);
+				}
+			}
+		</script>
+
+		<script type="text/javascript" src="node_modules/moment/min/moment-with-locales.min.js"></script>
+		<script type="text/javascript" src="./js/resolume-commands.js"></script>
+		<script type="text/javascript" src="./js/page.js"></script>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<h1 id="title">Nightingale Projection Scheduler</h1>
+
+			<main>
+
+				<section id="scheduleButtonWrapper">
+					<span>Scheduler</span>
+					<div class="toggle">
+						<input type="checkbox" id="scheduleToggle" checked />
+						<label for="scheduleToggle">Toggle</label>
+					</div>
+				</section>
+
+				<div class="flex">
+					<section class="split">
+						<h2><u>Triggers</u></h2>
+						<div>
+							<button id="sunriseButton" class="triggerButton">Sunrise</button>
+						</div>
+
+						<div>
+							<button id="twilightButton" class="triggerButton">Twilight</button>
+						</div>
+						
+						<div>
+							<button id="sunsetButton" class="triggerButton">Sunset</button>
+						</div>
+					</section class="split">
+
+					<section class="split">
+						<div id="messages">
+						</div>
+					</section>
+				</div>
+			</main>
+		</div>
+	</body>
+</html>

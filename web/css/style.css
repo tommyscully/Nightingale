@@ -1,0 +1,130 @@
+html, body {
+	width: 100%;
+	min-height: 100vh;
+}
+
+body {
+	text-align: center;
+	font-family: 'Roboto', sans-serif;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.flex {
+	display: flex;
+	justify-content: space-around;
+}
+
+h1 {
+	font-size: 4rem;
+}
+
+h1#title {
+	background: rgba(255,255,255,0.5);
+}
+
+h2 {
+	font-size: 2rem;
+}
+
+#scheduleButtonWrapper {
+	margin-bottom: 10px;
+}
+
+#scheduleButtonWrapper span {
+	font-size: 3rem;
+  vertical-align: text-top;
+  line-height: 100px;
+}
+
+button {
+	cursor: pointer;
+}
+
+button.triggerButton {
+	outline: none;
+	padding: 2rem;
+	font-size: 2rem;
+	min-width: 200px;
+	margin: 10px;
+	border: none;
+	color: #EFEFEF;
+	background: #333;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+}
+
+button.triggerButton:active {
+	background: #666;
+}
+
+button.triggerButton.active {
+	background: #CC0033;
+}
+
+section.split {
+	width: 45%;
+	height: 100%;
+	display: inline-block;
+	background: rgba(255,255,255,0.5);
+	border: 2px solid #000000;
+	border-radius: 20px;
+	padding: 10px;
+}
+
+#messages {
+	border: 1px solid black;
+	height: 60vh;
+	padding: 10px;
+	overflow: auto;
+	text-align: left;
+	font-family: 'Roboto Mono', monospace;
+	background: #FFF;
+}
+
+.toggle {
+	display: inline-block;
+}
+
+.toggle input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+.toggle label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 200px;
+	height: 100px;
+	background: grey;
+	display: block;
+	border-radius: 100px;
+	position: relative;
+}
+
+.toggle label:after {
+	content: '';
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 90px;
+	height: 90px;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+.toggle input:checked + label {
+	background: #bada55;
+}
+
+.toggle input:checked + label:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+}
+
+.toggle label:active:after {
+	width: 130px;
+}
