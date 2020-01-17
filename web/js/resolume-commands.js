@@ -6,6 +6,9 @@ port.open();
 console.log({ port });
 
 var ADDRESSES = {
+	// STOP
+	allStop: "composition/disconnectall",
+
 	// CEILING
 	ceilingDayStart: "/composition/layers/4/clips/1/connect",
 	ceilingDayStop: "/composition/layers/4/clear",
@@ -30,18 +33,21 @@ var ADDRESSES = {
 var COMMANDS = {
 	// SUNRISE
 	sunrise: [
+		request(ADDRESSES.allStop),
 		request(ADDRESSES.wallDayStart),
 		request(ADDRESSES.ceilingDayStart)
 	],
 
 	// PRE-SUNSET
 	twilight: [
+		request(ADDRESSES.allStop),
 		request(ADDRESSES.wallTwilightStart),
 		request(ADDRESSES.ceilingTwilightStart)
 	],
 
 	// SUNSET
 	sunset: [
+		request(ADDRESSES.allStop),
 		request(ADDRESSES.wallNightStart),
 		request(ADDRESSES.ceilingNightStart)
 	]
@@ -61,31 +67,4 @@ function sendOSC(packets, options) {
 		var packet = Object.assign(packets[i], options);
 		port.send(packet);
 	}
-}
-
-function sendStops() {
-	var stops = {
-		one: [
-			request(ADDRESSES.wallDayStop),
-			request(ADDRESSES.ceilingDayStop),
-			request(ADDRESSES.wallTwilightStop),
-			request(ADDRESSES.ceilingTwilightStop),
-			request(ADDRESSES.wallNightStop),
-			request(ADDRESSES.ceilingNightStop)
-		],
-		zero: [
-			request(ADDRESSES.wallDayStop, 0),
-			request(ADDRESSES.ceilingDayStop, 0),
-			request(ADDRESSES.wallTwilightStop, 0),
-			request(ADDRESSES.ceilingTwilightStop, 0),
-			request(ADDRESSES.wallNightStop, 0),
-			request(ADDRESSES.ceilingNightStop, 0),
-		]
-	};
-
-	sendOSC(stops.one);
-
-	sendOSC(stops.two, {
-		timeTag: osc.timeTag(0.1)
-	});
 }
