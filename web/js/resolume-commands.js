@@ -3,11 +3,9 @@ var port = new osc.WebSocketPort({ url: "ws://localhost:8081" });
 
 port.open();
 
-console.log({ port });
-
 var ADDRESSES = {
 	// STOP
-	allStop: "composition/disconnectall",
+	allStop: "/composition/disconnectall",
 
 	// CEILING
 	ceilingDayStart: "/composition/layers/4/clips/1/connect",
@@ -60,11 +58,8 @@ function request(address, value) {
 	};
 }
 
-function sendOSC(packets, options) {
-	options = options || {};
-
+function sendOSC(packets) {
 	for(var i = 0; i < packets.length; i++) {
-		var packet = Object.assign(packets[i], options);
-		port.send(packet);
+		port.send(packets[i]);
 	}
 }
