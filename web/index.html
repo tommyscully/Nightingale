@@ -9,23 +9,8 @@
 		<link rel="stylesheet" type="text/css" media="all" href="./css/style.css"></link>
 		<link rel="stylesheet" type="text/css" media="all" href="./css/osc-view.css"></link>
 
-		<script src="node_modules/osc/dist/osc-browser.min.js"></script>
-		<script>
-			var port = new osc.WebSocketPort({ url: "ws://localhost:8081" });
-
-			port.open();
-
-			console.log({ port });
-
-			function sendOSC(packets) {
-				for(var i = 0; i < packets.length; i++) {
-					// console.log({ packet: packets[i] });
-					port.send(packets[i]);
-				}
-			}
-		</script>
-
 		<script type="text/javascript" src="node_modules/moment/min/moment-with-locales.min.js"></script>
+		<script src="node_modules/osc/dist/osc-browser.min.js"></script>
 		<script type="text/javascript" src="./js/resolume-commands.js"></script>
 		<script type="text/javascript" src="./js/page.js"></script>
 	</head>

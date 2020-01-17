@@ -5,7 +5,7 @@ from OSC import _readString, _readFloat, _readInt
 if __name__ == "__main__":
 
 	s = OSCServer(("127.0.0.1", 7000), return_port=7000)
-	s.addMsgHandler("/hello", s.msgPrinter_handler)
+	s.addMsgHandler("/composition/layers/6/clear", s.msgPrinter_handler)
 
 	print s
 

@@ -1,3 +1,14 @@
+// Make the connection
+var port = new osc.WebSocketPort({ url: "ws://localhost:8081" });
+
+port.open();
+
+console.log({ port });
+
+port.socket.onerror(function(e) {
+	console.log({ e });
+});
+
 var ADDRESSES = {
 	// CEILING
 	ceilingDayStart: "/composition/layers/4/clips/1/connect",
@@ -23,27 +34,21 @@ var ADDRESSES = {
 var COMMANDS = {
 	// SUNRISE
 	sunrise: [
-		request(ADDRESSES.wallNightStop),
-		request(ADDRESSES.ceilingNightStop),
 		request(ADDRESSES.wallDayStart),
 		request(ADDRESSES.ceilingDayStart)
 	],
 
 	// PRE-SUNSET
 	twilight: [
-		request(ADDRESSES.wallNightStop),
-		request(ADDRESSES.ceilingNightStop),
 		request(ADDRESSES.wallTwilightStart),
 		request(ADDRESSES.ceilingTwilightStart)
 	],
 
 	// SUNSET
 	sunset: [
-		request(ADDRESSES.wallTwilightStop),
-		request(ADDRESSES.ceilingTwilightStop),
 		request(ADDRESSES.wallNightStart),
 		request(ADDRESSES.ceilingNightStart)
-	],
+	]
 };
 
 function request(address, value) {
@@ -51,4 +56,40 @@ function request(address, value) {
 		address: address,
 		args: [value || 1]
 	};
+}
+
+function sendOSC(packets, options) {
+	options = options || {};
+
+	for(var i = 0; i < packets.length; i++) {
+		var packet = Object.assign(packets[i], options);
+		port.send(packet);
+	}
+}
+
+function sendStops() {
+	var stops = {
+		one: [
+			request(ADDRESSES.wallDayStop),
+			request(ADDRESSES.ceilingDayStop),
+			request(ADDRESSES.wallTwilightStop),
+			request(ADDRESSES.ceilingTwilightStop),
+			request(ADDRESSES.wallNightStop),
+			request(ADDRESSES.ceilingNightStop)
+		],
+		zero: [
+			request(ADDRESSES.wallDayStop, 0),
+			request(ADDRESSES.ceilingDayStop, 0),
+			request(ADDRESSES.wallTwilightStop, 0),
+			request(ADDRESSES.ceilingTwilightStop, 0),
+			request(ADDRESSES.wallNightStop, 0),
+			request(ADDRESSES.ceilingNightStop, 0),
+		]
+	};
+
+	sendOSC(stops.one);
+
+	sendOSC(stops.two, {
+		timeTag: osc.timeTag(0.1)
+	});
 }
