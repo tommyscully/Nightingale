@@ -5,10 +5,6 @@ port.open();
 
 console.log({ port });
 
-port.socket.onerror(function(e) {
-	console.log({ e });
-});
-
 var ADDRESSES = {
 	// CEILING
 	ceilingDayStart: "/composition/layers/4/clips/1/connect",

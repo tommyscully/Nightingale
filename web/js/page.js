@@ -64,7 +64,7 @@ window.onload = function() {
 
 	scheduleToggle.addEventListener("change", function(e) {
 		SCHEDULE_ACTIVE = !SCHEDULE_ACTIVE;
-		console.log({ SCHEDULE_ACTIVE });
+		// console.log({ SCHEDULE_ACTIVE });
 	});
 
 	function setActiveButton() {
