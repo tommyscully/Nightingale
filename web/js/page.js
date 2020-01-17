@@ -83,6 +83,7 @@ window.onload = function() {
 	getSunTimes().then(setActiveButton);
 
 	function triggerSunrise() {
+		sendStops();
 		sendOSC(COMMANDS.sunrise);
 		activeSchedule = SCHEDULES.SUNRISE;
 		setActiveButton();
@@ -90,6 +91,7 @@ window.onload = function() {
 	}
 
 	function triggerTwilight() {
+		sendStops();
 		sendOSC(COMMANDS.twilight);
 		activeSchedule = SCHEDULES.TWILIGHT;
 		setActiveButton()
@@ -97,6 +99,7 @@ window.onload = function() {
 	}
 
 	function triggerSunset() {
+		sendStops();
 		sendOSC(COMMANDS.sunset);
 		activeSchedule = SCHEDULES.SUNSET;
 		setActiveButton()
