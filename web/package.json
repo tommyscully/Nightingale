@@ -4,7 +4,7 @@
     "ignore": [],
     "dependencies": {
         "jquery": "3.4.1",
-        "moment": "^2.24.0",
+        "moment": "^2.29.4",
         "osc": "2.3.0"
     }
 }
